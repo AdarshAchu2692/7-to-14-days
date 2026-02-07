@@ -1,4 +1,4 @@
-const DEV_MODE = false;
+const DEV_MODE = true;
 
 const START_DAY = 7;
 const MONTH = 1;
@@ -9,7 +9,7 @@ const nextBtn = document.getElementById('nextBtn');
 
 let currentIndex = 0;
 
-const TOO_EARLY_MESSAGE = "Dhirthi vekkalle ... Poyit nale vaa";
+const TOO_EARLY_MESSAGE = "dhirthi vekkalle ... Poyit nale vaa";
 
 const nextModal = document.getElementById('nextMessageModal');
 const nextMessageText = document.getElementById('nextMessageText');
@@ -26,13 +26,37 @@ function setupAudio(section){
   const start = section.querySelector('.audio-start');
   const stop = section.querySelector('.audio-stop');
   const music = section.querySelector('.bgMusic, #promiseMusic');
+  const video = section.querySelector('video');
 
-  if(start) start.onclick = ()=> music.play().catch(()=>{});
-  if(stop) stop.onclick = ()=>{
-    music.pause();
-    music.currentTime = 0;
-  };
+  if (start && music) {
+    start.onclick = () => {
+      music.play().catch(()=>{});
+    };
+  }
+
+  if (stop && music) {
+    stop.onclick = () => {
+      music.pause();
+      music.currentTime = 0;
+    };
+  }
+
+  // 🎬 ONLY stop music if video has audio
+  if (video && music && !video.muted) {
+    video.addEventListener('play', () => {
+      music.pause();
+    });
+
+    video.addEventListener('pause', () => {
+      music.play().catch(()=>{});
+    });
+
+    video.addEventListener('ended', () => {
+      music.play().catch(()=>{});
+    });
+  }
 }
+
 
 function isAllowed(index){
   if(DEV_MODE) return true;
@@ -80,5 +104,6 @@ if(promiseMusic && promiseVoice){
 }
 
 showDay(0);
+
 
 
