@@ -1,4 +1,4 @@
-const DEV_MODE = true;
+const DEV_MODE = false;
 
 const START_DAY = 7;
 const MONTH = 1;
@@ -80,3 +80,4 @@ if(promiseMusic && promiseVoice){
 }
 
 showDay(0);
+
