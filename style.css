@@ -135,3 +135,9 @@ h1, h2 { text-align: center; }
   border-radius: 22px;
   cursor: pointer;
 }
+
+.polaroid.large {
+  width: 400px;
+}
+
+
