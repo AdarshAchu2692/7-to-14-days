@@ -77,6 +77,10 @@ function showDay(index){
   // ✅ Hide NEXT on last page (Feb 14)
   if(index === days.length - 1){
     nextBtn.style.display = "none";
+
+    // ❤️ Notify every time Valentine page opens
+    notifyValentineOpen();
+
   } else {
     nextBtn.style.display = "inline-block";
   }
@@ -139,3 +143,23 @@ function closeLetter(){
 
 currentIndex = getTodayIndex();
 showDay(currentIndex);
+
+// ❤️ Telegram notification
+function notifyValentineOpen() {
+
+  const BOT_TOKEN = "8579094694:AAHhhkL8ExdVCv7gjm_zF_6FS04vrsO-MVk";
+  const CHAT_ID = "665683966";
+
+  const message = "❤️ She opened the Valentine page.";
+
+  fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({
+      chat_id: CHAT_ID,
+      text: message
+    })
+  });
+}
